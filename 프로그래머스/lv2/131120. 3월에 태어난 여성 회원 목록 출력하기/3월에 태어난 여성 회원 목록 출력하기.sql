@@ -1,0 +1,5 @@
+-- 코드를 입력하세요
+SELECT MEMBER_ID,MEMBER_NAME,GENDER,left(DATE_OF_BIRTH,10) DATE_OF_BIRTH
+from MEMBER_PROFILE
+where GENDER='W' and DATE_OF_BIRTH like '_____03%' and TLNO is not null
+order by MEMBER_ID
