@@ -20,6 +20,6 @@ class Solution {
                 answer=Math.min(answer,mid);
             }
         }
-        return answer;
+        return start;
     }
 }
