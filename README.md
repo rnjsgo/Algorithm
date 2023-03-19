@@ -5,4 +5,4 @@
 
 
 
-<img width="539" alt="스크린샷 2023-03-19 오후 6 35 42" src="https://user-images.githubusercontent.com/102651155/226172810-b432cf24-055c-45fb-bfa0-a1a5f5f0490f.png">
+<img width="550" alt="스크린샷 2023-03-19 오후 8 41 58" src="https://user-images.githubusercontent.com/102651155/226172989-2069a484-d2ed-4f55-a1ef-7c8647552da8.png">
