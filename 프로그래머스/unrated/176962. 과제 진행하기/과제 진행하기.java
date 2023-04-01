@@ -27,7 +27,7 @@ class Solution {
                 break;
             }
             int term=calcTerm(wait.peek()[1],working.peek()[1]);
-            while(!working.isEmpty()){
+            while(!working.isEmpty()&&term>0){
                 if(term>=Integer.parseInt(working.peek()[2])){
                     answer[index]=working.peek()[0];
                     term-=Integer.parseInt(working.pop()[2]);
@@ -37,7 +37,7 @@ class Solution {
                     String[] work= working.pop();
                     work[2]=String.valueOf((Integer.parseInt(work[2])-term));
                     working.push(work);
-                    break;
+                    term=0;
                 }
             }
         }
