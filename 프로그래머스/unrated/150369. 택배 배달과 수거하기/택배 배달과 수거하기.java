@@ -1,38 +1,41 @@
 class Solution {
     public long solution(int cap, int n, int[] deliveries, int[] pickups) {
         long answer = 0;
-        while(n>0){
-            if(deliveries[n-1]==0&&pickups[n-1]==0){
-                n--;
-                continue;
+        int delivery=n-1, pickup=n-1;
+        while(delivery>=0||pickup>=0){
+            while(delivery>=0){
+                if(deliveries[delivery]==0) delivery--;
+                else break;
             }
-            else{
-                int truck=0;
-                for(int i=1;n-i>=0;i++){
-                    if(deliveries[n-i]==0) continue;
-                    if(truck+deliveries[n-i]>cap){
-                        deliveries[n-i]-=cap-truck;
-                        break;
-                    }
-                    else{
-                        truck+=deliveries[n-i];
-                        deliveries[n-i]=0;
-                    } 
+            while(pickup>=0){
+                if(pickups[pickup]==0) pickup--;
+                else break;
+            }
+        
+            long distance=Math.max(delivery,pickup)+1;
+            answer+=distance*2;
+            int left=cap;
+            while(left>0&&delivery>=0){
+                if(deliveries[delivery]>left){
+                    deliveries[delivery]-=left;
+                    break;
                 }
-                truck=0;
-                for(int i=1;n-i>=0;i++){
-                    if(pickups[n-i]==0) continue;
-                    if(truck+pickups[n-i]>cap){
-                        pickups[n-i]-=cap-truck;
-                        break;
-                    }
-                    else{
-                        truck+=pickups[n-i];
-                        pickups[n-i]=0;
-                    } 
+                else {
+                    left-=deliveries[delivery];
+                    delivery--;
                 }
             }
-            answer+=n*2;
+            left=cap;
+            while(left>0&&pickup>=0){
+                if(pickups[pickup]>left){
+                    pickups[pickup]-=left;
+                    break;
+                }
+                else {
+                    left-=pickups[pickup];
+                    pickup--;
+                }
+            }
         }
         
         return answer;
