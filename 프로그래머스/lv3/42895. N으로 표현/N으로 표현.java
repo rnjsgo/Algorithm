@@ -3,7 +3,7 @@ class Solution {
     public int solution(int N, int number) {
         dfs(0,0,N,number);
         if(answer==Integer.MAX_VALUE) return -1;
-        return answer;
+        else return answer;
     }
     public void dfs(int count,int value,int N,int number){
         if(count>8) return;
@@ -12,7 +12,7 @@ class Solution {
             return;
         }
         int newN=0;
-        for(int i=0;i<8;i++){
+        for(int i=0;i<5;i++){
             newN=newN*10+N;
             dfs(count+1+i,value+newN,N,number);
             dfs(count+1+i,value-newN,N,number);
