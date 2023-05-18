@@ -1,0 +1,21 @@
+import java.util.*;
+class Solution {
+    public int solution(int[] menu, int[] order, int k) {
+        int answer = 1;
+        Queue<Integer> queue=new LinkedList<>();
+        queue.add(order[0]);
+        int time=menu[order[0]];
+        
+        for(int i=1;i<order.length;i++){
+            time-=k;            
+            while(time<=0){
+                queue.poll();    
+                if(queue.isEmpty()) time=menu[order[i]];
+                else time+=menu[queue.peek()];
+            }         
+            queue.add(order[i]);
+            answer=Math.max(answer,queue.size());
+        }
+        return answer;
+    }
+}
