@@ -1,57 +1,57 @@
 class Solution {
-    static int difference=0;
-    static int[] answer=new int[11];
-    static int[] apeachResult;
+    static int maxDifference = 0;
+    static int[] answer = new int[11];
     
     public int[] solution(int n, int[] info) {
-        apeachResult=info;
-        int[] target=new int[11];
-        dfs(target,n,0);
-        
-        
-        if(difference==0){
-            int arr[]={-1};
-            return arr;
+        int[] lion = new int[11];
+        dfs(n , lion, info, 0, 10);
+        if(maxDifference <= 0){
+         int[] neverWin = {-1};
+            return neverWin;
         }
+
         return answer;
     }
-    public static void dfs(int[] target,int leftArrow,int index){
-        if(leftArrow==0){
-            int lion=0;
-            int apeach=0;
-            for(int i=0;i<11;i++){
-                if(target[i]==0&&apeachResult[i]==0) continue;
-                if(target[i]>apeachResult[i]) lion+=10-i;
-                else apeach+=10-i;
+    
+    public void dfs(int arrows, int[] lion, int[] apeach, int difference, int score){
+        if(score < 0){
+            if(arrows>0) lion[10] = arrows;
+            if(difference>maxDifference){
+                maxDifference = difference;
+                answer = lion;
             }
-            if(difference<lion-apeach){
-                difference=lion-apeach;
-                answer=target;
-                return;
-            }
-            else if(difference==lion-apeach){
-                for(int i=10;i>=0;i--){
-                    if(target[i]>answer[i]){
-                        answer=target;
+            if(difference==maxDifference){
+                for(int i=10; i>=0; i--){
+                    if(lion[i]>answer[i]){
+                        answer = lion;
                         return;
                     }
-                    else if(target[i]<answer[i]) return;
-                    else continue;
+                    if(lion[i]<answer[i]){
+                        return;
+                    }
                 }
             }
-            else return;
+            return ;
         }
-        if(index==10){
-            target[10]+=leftArrow;
-            dfs(target,0,index);
+        // 이기는 경우
+        if(arrows>apeach[10-score]){
+            int arrow = apeach[10-score] + 1;
+            int[] newLion = lion.clone();
+            newLion[10-score] = arrow;
+            dfs(arrows-arrow, newLion, apeach, difference + score, score - 1);
         }
-        else{
-            int[] winTarget=target.clone();
-            int[] loseTarget=target.clone();
-            winTarget[index]=apeachResult[index]+1;
-            if(leftArrow-winTarget[index]>=0)
-                dfs(winTarget,leftArrow-winTarget[index],index+1);
-            dfs(loseTarget,leftArrow,index+1);
+        
+        // 비기는 경우
+        if(score>0 && apeach[10-score] == 0){
+            int[] newLion = lion.clone();
+            newLion[10-score] = 0;
+            dfs(arrows, newLion, apeach, difference, score - 1);
         }
+        
+        // 지는 경우
+        int arrow = apeach[10-score] + 1;
+        int[] newLion = lion.clone();
+        newLion[10-score] = 0;
+        dfs(arrows, newLion, apeach, difference - score, score - 1);
     }
 }
