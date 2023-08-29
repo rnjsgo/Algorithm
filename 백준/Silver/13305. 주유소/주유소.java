@@ -13,7 +13,7 @@ public class Main {
         int lowPrice = Integer.MAX_VALUE;
         for(int i = 0 ; i<countries-1 ; i++){
             lowPrice = Math.min(lowPrice, Integer.parseInt(prices[i]));
-            sum += (long)lowPrice * Long.parseLong(distances[i]);
+            sum += lowPrice * Integer.parseInt(distances[i]);
         }
         System.out.println(sum);
     }
