@@ -1,5 +1,3 @@
-
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -17,7 +15,6 @@ public class Main {
         }
 
         Arrays.sort(trees);
-        long answer= 0 ;
         long start = 0;
         long end = trees[trees.length-1];
         long mid=0;
@@ -27,17 +24,10 @@ public class Main {
             for (int i = 0; i < trees.length; i++) {
                 if (trees[i] > mid) sum += trees[i] - mid;
             }
-            if (sum > need){
-                answer=mid;
-                start = mid + 1;
-            }
-            else if (sum < need) end = mid - 1;
-            else {
-                answer = mid;
-                break;
-            }
+            if (sum >= need) start = mid + 1;
+            else end = mid - 1;
         }
-        System.out.println(answer);
+        System.out.println(end);
     }
 
 }
